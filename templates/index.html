@@ -1,0 +1,156 @@
+{% extends "layout.html" %} {% block body %}
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Optical Mark Recognition</h1>
+        <hr>
+        <!--<p class="lead">Ahmet KÖKEN</p>-->
+        <a class="btn btn-lg btn-gray" href="uploadAnswerKey" role="button"
+            >Get Started</a
+        >
+    </div>
+
+
+
+</div>
+
+<h4 class="col-lg-3">Blank Answer Sheets</h4>
+<div class="row justify-content-center text-justify">
+    <div class="col-lg-3 col-xs-12">
+        <p>
+            Click on the photo you want and download it It will start.
+        </p>
+
+        <br />
+        <b><p>10 Item Questions</p></b>
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/10-Small.jpg');"
+        >
+            Small
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/10-Medium.jpg');"
+        >
+            Medium
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/10-Large.jpg');"
+        >
+            Large
+        </button>
+
+
+        <br />
+        <br />
+        
+        <b><p>20 Item Questions</p></b>
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/20-Small.jpg');"
+        >
+            Small
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/20-Medium.jpg');"
+        >
+            Medium
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/20-Large.jpg');"
+        >
+            Large
+        </button>
+    <br>
+    <br />
+
+    <b><p>40 Item Questions</p></b>
+    <button
+        type="button"
+        class="btn btn-gray q-button"
+        onclick="changeImage('/static/images/emptysheets/40-Small.png');"
+    >
+        Small
+    </button>
+    <br />
+
+    <button
+        type="button"
+        class="btn btn-gray q-button"
+        onclick="changeImage('/static/images/emptysheets/40-Medium.png');"
+    >
+        Medium
+    </button>
+    <br />
+
+    <button
+        type="button"
+        class="btn btn-gray q-button"
+        onclick="changeImage('/static/images/emptysheets/40-Large.png');"
+    >
+        Large
+    </button>
+
+        <br />
+        <br />
+
+        <b><p>50 Item Questions</p></b>
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/50-Small.png');"
+        >
+            Small
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/50-Medium.png');"
+        >
+            Medium
+        </button>
+        <br />
+
+        <button
+            type="button"
+            class="btn btn-gray q-button"
+            onclick="changeImage('/static/images/emptysheets/50-Large.png');"
+        >
+            Large
+        </button>
+        <br/>
+    </div>
+    
+    <div class="col-lg-2 col-xs-12"></div>
+    <div class="col-lg-6 col-xs-12 justify-content-center">
+        <a id="link" href="/static/images/emptysheets/10-Small.jpg" download=>
+        <img
+            class="img-fluid q-photo"
+            id="image"
+            src="/static/images/emptysheets/10-Small.jpg"
+            alt="Blank Key"
+        />
+        </a>
+    </div>
+
+{% endblock %}

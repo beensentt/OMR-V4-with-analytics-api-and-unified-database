@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-xs-12 text-center">
+            <h2>Upload the Answer Key</h2>
+            {% include "includes/error.html" %}
+            <div>
+                <div class="dropdown-container">
+                    <button class="btn btn-dark dropdown-toggle" id="gradeDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        Grade
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" id="gradeDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Something else here</a></li>
+                    </ul>
+                    <div id="selectedGrade"></div>
+                    <br/>
+                </div>
+                <br/>
+
+
+                <div class="dropdown-container">
+                    <button class="btn btn-dark dropdown-toggle" id="sectionDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        Section
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" id="sectionDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Something else here</a></li>
+                    </ul>
+                    <div id="selectedSection"></div>
+                    <br/>
+                </div>
+                <br/>
+
+                <div class="dropdown-container">
+                    <button class="btn btn-dark dropdown-toggle" id="subjectDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        Subject
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" id="subjectDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Something else here</a></li>
+                    </ul>
+                    <div id="selectedSubject"></div>
+                    <br/>
+                </div>
+                <br/>
+
+                <div class="dropdown-container">
+                    <button class="btn btn-dark dropdown-toggle" id="quarterDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                        Quarter
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" id="quarterDropdown">
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Another action</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Something else here</a></li>
+                    </ul>
+                    <div id="selectedQuarter"></div>
+                    <br/>
+                </div>
+                <br/>
+
+                <!-- Repeat the same structure for other dropdowns -->
+
+            </div>
+            <br/>
+            <form
+                id="uploadForm" 
+                class="justify-content-between"
+                method="post"
+                action="/uploadAnswerKey"
+                enctype="multipart/form-data"
+                onsubmit="return validateDropdowns();" 
+            >
+                <div class="imgUp">
+                    <div class="imagePreview" id="preview">
+                        <input
+                            id="answerKey"
+                            class="uploadFile img choose"
+                            type="file"
+                            name="file"
+                            autocomplete="off"
+                            required
+                        />
+                        <button id="uploadBtn" class="choose btn btn-gray" type="submit" disabled> <!-- added id to the button and disabled by default -->
+                            <i class="fas fa-cloud-upload-alt"></i>&nbsp;Upload
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dropdown-container {
+        display: inline-block;
+        margin-right: 10px; /* Adjust margin as needed */
+    }
+</style>
+
+<script>
+    function selectOption(element, dropdownType) {
+        var selectedOption = element.innerText;
+        document.getElementById('selected' + dropdownType.charAt(0).toUpperCase() + dropdownType.slice(1)).innerText = selectedOption;
+        validateDropdowns(); // call the validation function whenever dropdown value changes
+    }
+
+    function validateDropdowns() {
+        var gradeSelected = document.getElementById('selectedGrade').innerText.trim();
+        var sectionSelected = document.getElementById('selectedSection').innerText.trim();
+        var subjectSelected = document.getElementById('selectedSubject').innerText.trim();
+        var quarterSelected = document.getElementById('selectedQuarter').innerText.trim();
+        // You can add similar checks for other dropdowns if needed
+        var uploadBtn = document.getElementById('uploadBtn');
+        if (gradeSelected && sectionSelected && subjectSelected && quarterSelected) {
+            uploadBtn.removeAttribute('disabled'); // Enable the upload button if grade is selected
+        } else {
+            uploadBtn.setAttribute('disabled', 'disabled'); // Disable the upload button if grade is not selected
+            return false; // Return false to prevent form submission
+        }
+    }
+
+    // Add event listeners to call the validation function on page load and whenever dropdown value changes
+    window.onload = validateDropdowns;
+    document.getElementById('gradeDropdown').addEventListener('change', validateDropdowns);
+    // You can add similar event listeners for other dropdowns if needed
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

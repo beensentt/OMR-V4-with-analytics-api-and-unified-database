@@ -1,0 +1,281 @@
+{% extends "layout.html" %} 
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12 text-center">
+            <h2>Results</h2>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-12 text-center dropdown-container">
+            <div class="dropdown-item-container">
+                <button class="btn btn-dark dropdown-toggle" id="gradeDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    Grade
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" id="gradeDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Another action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'grade')">Something else here</a></li>
+                </ul>
+                <div id="selectedGrade"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 text-center dropdown-container">
+            <div class="dropdown-item-container">
+                <button class="btn btn-dark dropdown-toggle" id="sectionDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    Section
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" id="sectionDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Another action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'section')">Something else here</a></li>
+                </ul>
+                <div id="selectedSection"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 text-center dropdown-container">
+            <div class="dropdown-item-container">
+                <button class="btn btn-dark dropdown-toggle" id="subjectDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    Subject
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" id="subjectDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Another action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'subject')">Something else here</a></li>
+                </ul>
+                <div id="selectedSubject"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 text-center dropdown-container">
+            <div class="dropdown-item-container">
+                <button class="btn btn-dark dropdown-toggle" id="quarterDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                    Quarter
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" id="quarterDropdown">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Another action</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(this, 'quarter')">Something else here</a></li>
+                </ul>
+                <div id="selectedQuarter"></div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-2 col-xs-12 text-center">
+            <div class="row justify-content-center">
+                <div class="col-8 text-center">
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Answer Key</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if answer_key|length <= 10 %}
+                            {% for ans in answer_key %}
+                                <tr>
+                                    <th>{{ loop.index }}</th>
+                                    <td>{{ ans }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for i in range(answer_key|length // 2) %}
+                                <tr>
+                                    <th>{{ i + 1 }}</th>
+                                    <td>{{ answer_key[i*2] }}</td>
+                                    {% if i*2 + 1 < answer_key|length %}
+                                        <th>{{ i + 1 + answer_key|length // 2 }}</th>
+                                        <td>{{ answer_key[i*2 + 1] }}</td>
+                                    {% else %}
+                                        <th>{{ i + 1 + answer_key|length // 2 }}</th>
+                                        <td></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            {% if answer_key|length % 2 != 0 %}
+                                <tr>
+                                    <th>{{ answer_key|length }}</th>
+                                    <td>{{ answer_key[-1] }}</td>
+                                    <th></th>
+                                    <td></td>
+                                </tr>
+                            {% endif %}
+                        {% endif %}
+                        
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-xs-12">
+            <table class="table table-hover" style="width: 100%">
+                <colgroup>
+                    <col span="1" style="width: 5%" />
+                    <col span="1" style="width: 20%" />
+                    <col span="1" style="width: 6%" />
+                    <col span="1" style="width: 6%" />
+                    <col span="1" style="width: 6%" />
+                    <col span="1" style="width: 7%" />
+                    <col span="1" style="width: 35%" />
+                    <col span="1" style="width: 25%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>LRN</th>
+                        <th>Name </th>
+                        <th class="text-center">Correct</th>
+                        <th class="text-center">Mistake</th>
+                        <th class="text-center">Invalid</th>
+                        <th class="text-center">Percentage</th>
+                        <th class="text-center">List of Answers</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in scores %}
+                        <tr>
+                            <td class="v-align-center">{{ loop.index0+1 }}</td>
+                            <td class="v-align-center">
+                                <img src="{{ scores[key][2] }}" style="height: auto; width: 100%; max-height: 50px;" alt="">
+                            </td>
+                            <td class="v-align-center text-center">
+                                <span class="badge badge-pill badge-success text-center">{{ scores[key][3] }}</span>
+                            </td>
+                            <td class="v-align-center text-center">
+                                <span class="badge badge-pill badge-danger text-center">{{ scores[key][4] }}</span>
+                            </td>
+                            <td class="v-align-center text-center">
+                                <span class="badge badge-pill badge-primary text-center">{{ scores[key][5] }}</span>
+                            </td>
+                            <td class="v-align-center text-center">{{ scores[key][1] }} %</td>
+                            <td class="v-align-center text-center">
+                                {{ " ".join(scores[key][0]) }}
+                            </td>
+                            <td class="v-align-center text-right">
+                                <button type="button" class="btn btn-gray br-50px" data-toggle="modal" data-target="#img-{{ loop.index0 }}">
+                                    <i class="fas fa-search"></i>&nbsp;Review the Paper
+                                </button>
+                            </td>
+
+                        </tr>
+                        <div class="modal" id="img-{{ loop.index0 }}">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Answer Sheet</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <a id="link" href="{{ key }}" download=>
+                                            <img src="{{ key }}" style="max-width: 100%" alt="">
+                                        </a>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger br-50px" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+
+{# Display both correct and wrong answers in one table #}
+<div class="col-lg-12 col-xs-12 text-center">
+    <div class="row justify-content-center">
+        <div class="col-8 text-center">
+            <h2>Answer Analysis</h2>
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>Item Number</th>
+                        <th>Correct Answer</th>
+                        <th>Total Correct Answers</th>
+                        <th>Total Wrong Answers</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(answer_key | length) %}
+                        <tr>
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ answer_key[i] }}</td>
+                            <td>{{ total_wrong_answers.get(i, 0) }}</td>
+                            <td>{{ total_correct_answers.get(i, 0) }}</td>
+                            <td>
+                                {% if total_papers %}
+                                    {{ '{:.2%}'.format(total_correct_answers.get(i + 1, 0) / total_papers) }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+
+<style>
+    .dropdown-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .dropdown-item-container {
+        margin-bottom: 10px;
+    }
+</style>
+<script>
+    function selectOption(element, dropdownType) {
+        var selectedOption = element.innerText;
+        document.getElementById('selected' + dropdownType.charAt(0).toUpperCase() + dropdownType.slice(1)).innerText = selectedOption;
+        validateDropdowns(); // call the validation function whenever dropdown value changes
+    }
+
+    function validateDropdowns() {
+        var gradeSelected = document.getElementById('selectedGrade').innerText.trim();
+        var sectionSelected = document.getElementById('selectedSection').innerText.trim();
+        var subjectSelected = document.getElementById('selectedSubject').innerText.trim();
+        var quarterSelected = document.getElementById('selectedQuarter').innerText.trim();
+        // You can add similar checks for other dropdowns if needed
+        var uploadBtn = document.getElementById('uploadBtn');
+        if (gradeSelected && sectionSelected && subjectSelected && quarterSelected) {
+            uploadBtn.removeAttribute('disabled'); // Enable the upload button if grade is selected
+        } else {
+            uploadBtn.setAttribute('disabled', 'disabled'); // Disable the upload button if grade is not selected
+            return false; // Return false to prevent form submission
+        }
+    }
+
+    // Add event listeners to call the validation function on page load and whenever dropdown value changes
+    window.onload = validateDropdowns;
+    document.getElementById('gradeDropdown').addEventListener('change', validateDropdowns);
+    // You can add similar event listeners for other dropdowns if needed
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
